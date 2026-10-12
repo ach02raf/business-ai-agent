@@ -84,18 +84,3 @@ MOCK_LLM=true pytest -q     # 15 tests : tools, guardrails, flux d'approbation, 
 
 Remplacez le contenu de `app/data.py` / les fonctions de `app/tools.py` par vos appels API (CRM, ERP, Zendesk…).
 Ajouter un tool = 1 modèle Pydantic + 1 fonction + 1 entrée dans `TOOLS` (il est automatiquement exposé à l'agent et au serveur MCP).
-
-## CV
-
-> Built an AI agent using tool calling and MCP to interact with business APIs, with validation, fallback and controlled tool access.
-
-**Pour l'entretien :** human-in-the-loop via interrupt LangGraph + checkpointer ; défense en profondeur (validation côté agent ET côté tool) ;
-le LLM ne décide que *quoi* appeler, les règles d'accès sont appliquées en code ; pour la prod : remplacer `MemorySaver` par un checkpointer Postgres/Redis,
-ajouter authN/authZ par rôle, rate limiting et tracing (LangSmith / OpenTelemetry).
-
-## Structure
-
-```
-app/  main.py (API) · agent.py (graphe) · llm.py · tools.py · guardrails.py · backends.py · mcp_server.py · data.py · config.py
-tests/  ...        Dockerfile · docker-compose.yml · .env.example · requirements.txt
-```
